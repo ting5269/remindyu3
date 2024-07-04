@@ -33,7 +33,7 @@ def callback():
 def handle_message(event):
     # 如果接收到的訊息是 "1"，回覆 "你好"
     if event.message.text == "1":
-        reply_text = "6.0"
+        reply_text = "6.1"
     else:
         reply_text = event.message.text
 
@@ -51,7 +51,7 @@ def start_reminders():
     Timer(0, send_reminder, [4]).start()
 
 # 設定每天的提醒時間
-schedule.every().day.at("03:50").do(start_reminders)
+schedule.every().day.at("04:00").do(start_reminders)
 
 def run_scheduler():
     while True:
