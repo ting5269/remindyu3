@@ -9,8 +9,11 @@ from threading import Thread, Timer
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('A8ISwhsCwJuQrPe03vd+6xngj59R4nah0V4If0GKJjiSg4EIogYRCWzwE+0XA4Avkc2mBfZHLHCSQxWhkgmuykstCywsHIBXr1jn08CwQutNBrcrg5gzgIQIMDFF/LiYErXmttwdoHlegvBCRgRuYgdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('d969ac6229fcb01a73b29792667ec7b1')
+LINE_CHANNEL_ACCESS_TOKEN = os.environ.get('LINE_CHANNEL_ACCESS_TOKEN')
+LINE_CHANNEL_SECRET = os.environ.get('LINE_CHANNEL_SECRET')
+
+line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -30,7 +33,7 @@ def callback():
 def handle_message(event):
     # 如果接收到的訊息是 "1"，回覆 "你好"
     if event.message.text == "1":
-        reply_text = "4.1"
+        reply_text = "6.0"
     else:
         reply_text = event.message.text
 
@@ -48,7 +51,7 @@ def start_reminders():
     Timer(0, send_reminder, [4]).start()
 
 # 設定每天的提醒時間
-schedule.every().day.at("03:10").do(start_reminders)
+schedule.every().day.at("03:50").do(start_reminders)
 
 def run_scheduler():
     while True:
